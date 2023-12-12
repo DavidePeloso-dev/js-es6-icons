@@ -118,7 +118,7 @@ const iconsRowEl = document.getElementById('iconsRow');
 icons.forEach((icon)=>{
     const upperCaseName= icon.name.toUpperCase();
     const iconCardEl = 
-    `<div class="col py-2">
+    `<div id="${icon.name}" class="col py-2">
         <div class="card p-3 text-center">
             <div class="icon">
                 <i class="fa-solid fa-${icon.name} fa-xl"></i>
@@ -132,6 +132,8 @@ icons.forEach((icon)=>{
     iconEl.style.color = `${icon.color}`
 });
 
+console.log(iconsRowEl);
+
 
 const animals = icons.filter(icon => icon.type === "animal" );
 console.log(animals);
@@ -141,4 +143,39 @@ console.log(users);
 
 const vegetables = icons.filter(icon => icon.type === "vegetable");
 console.log(vegetables);
+
+
+
+const formSelect = document.querySelector('.form-select');
+
+console.log(formSelect);
+formSelect.addEventListener('change' , function(){
+    if(formSelect.value == '1'){
+        filterOption(animals)
+    } else if(formSelect.value == '2'){
+        filterOption(vegetables);
+    } else if(formSelect.value == '3'){
+        filterOption(users);
+    } else {
+        filterOption(icons);
+    }
+})
+
+
+
+/**
+ * 
+ * @param {Array} array insert the array you want to filter
+ */
+function filterOption(array){
+    icons.forEach((icon)=>{
+        const iconColEl = document.getElementById(`${icon.name}`);
+        if(array.includes(icon)){
+            iconColEl.classList.remove('d-none');
+        } else {
+            iconColEl.classList.add('d-none');
+        }
+    })
+}
+
 
