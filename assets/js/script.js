@@ -113,6 +113,25 @@ const icons = [
 	}
 ];
 
+const iconsRowEl = document.getElementById('iconsRow');
+
+icons.forEach((icon)=>{
+    const upperCaseName= icon.name.toUpperCase();
+    const iconCardEl = 
+    `<div class="col py-2">
+        <div class="card p-3 text-center">
+            <div class="icon">
+                <i class="fa-solid fa-${icon.name} fa-xl"></i>
+            </div>
+            <h6 class="name mt-2">${upperCaseName}</h6>
+        </div>
+    </div>`;
+    iconsRowEl.insertAdjacentHTML('beforeend', iconCardEl);
+
+    const iconEl = document.querySelector(`.${icon.prefix}${icon.name}`);
+    iconEl.style.color = `${icon.color}`
+});
+
 
 const animals = icons.filter(icon => icon.type === "animal" );
 console.log(animals);
