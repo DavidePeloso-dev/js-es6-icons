@@ -1,3 +1,4 @@
+// Declare icons
 const icons = [
 	{
 		name: 'cat',
@@ -113,8 +114,28 @@ const icons = [
 	}
 ];
 
+// Declare wrapper's icons element
 const iconsRowEl = document.getElementById('iconsRow');
 
+// divide icons for family
+const animals = icons.filter(icon => icon.type === "animal" );
+console.log(animals);
+
+const users = icons.filter(icon => icon.type === "user");
+console.log(users);
+
+const vegetables = icons.filter(icon => icon.type === "vegetable");
+console.log(vegetables);
+
+// Generate color for icons family
+const animalColor = Hex();
+console.log(animalColor);
+const vegetableColor = Hex();
+console.log(vegetableColor);
+const userColor = Hex();
+console.log(userColor);
+
+// Add card to the DOM
 icons.forEach((icon)=>{
     const upperCaseName= icon.name.toUpperCase();
     const iconCardEl = 
@@ -128,24 +149,28 @@ icons.forEach((icon)=>{
     </div>`;
     iconsRowEl.insertAdjacentHTML('beforeend', iconCardEl);
 
+    // Add random color to family's icon
+    animals.forEach((icon)=>{
+        icon.color = animalColor
+    })
+    
+    vegetables.forEach((icon)=>{
+        icon.color = vegetableColor
+    })
+    
+    users.forEach((icon)=>{
+        icon.color = userColor
+    })
+    
     const iconEl = document.querySelector(`.${icon.prefix}${icon.name}`);
     iconEl.style.color = `${icon.color}`
+    
 });
 
 console.log(iconsRowEl);
 
 
-const animals = icons.filter(icon => icon.type === "animal" );
-console.log(animals);
-
-const users = icons.filter(icon => icon.type === "user");
-console.log(users);
-
-const vegetables = icons.filter(icon => icon.type === "vegetable");
-console.log(vegetables);
-
-
-
+// filter function
 const formSelect = document.querySelector('.form-select');
 
 console.log(formSelect);
@@ -161,10 +186,33 @@ formSelect.addEventListener('change' , function(){
     }
 })
 
+console.log(Hex());
+
+/**
+ * ## generate a random color
+ * @returns return a HEX color value
+ */
+function Hex() {
+    let r = Math.floor(Math.random()*256).toString(16);
+    if(r.length < 2){
+        r = '0'+ r
+    };
+    let g = Math.floor(Math.random()*256).toString(16);
+    if(g.length < 2){
+        g = '0'+ g
+    };
+    let b = Math.floor(Math.random()*256).toString(16);
+    if(b.length < 2){
+        b= '0'+ b
+    };
+
+    return `#${r}${g}${b}`.toUpperCase()
+    
+}
 
 
 /**
- * 
+ * ## visualizza in pagina solo ciò che è contenuto nell'array
  * @param {Array} array insert the array you want to filter
  */
 function filterOption(array){
